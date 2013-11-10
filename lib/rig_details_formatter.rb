@@ -5,15 +5,13 @@ class RigDetailsFormatter
 		if data.empty?
 			['downtime', 'collecting', 'commuting'].each { |status| set_elements_to_not_available status }
 		elsif data.is_a?(Array) && data.length > 1
-			data.each do |info|
-				set_elements_to_value info
-			end
+			data.each { |info| set_elements_to_value info }
         else # just one hash in an array
 			['collecting', 'commuting', 'downtime'].each do |status|
 				if data[0][:collection_status] == status
 					set_elements_to_value data[0]
 				end
-				unless data[0][:collection_status] == status
+				if data[0][:collection_status] != status
 					set_elements_to_not_available status
 				end
 			end
@@ -25,9 +23,6 @@ class RigDetailsFormatter
 		end
 	end
 	def set_elements_to_not_available( status )
-		set_value_for_each_element( status, 'NA' )
-	end
-	def set_value_for_each_element( status, value )
-		['duration', 'distance', 'update_count'].each { |element| send "#{status}_#{element}=", value }
+		['duration', 'distance', 'update_count'].each { |element| send "#{status}_#{element}=", 'NA' }
 	end
 end
