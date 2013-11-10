@@ -26,6 +26,8 @@ describe "RigDetailsFormatter" do
  		its(:commuting_distance) { should == 'NA' }
  		its(:commuting_duration) { should == 'NA' }
  		its(:commuting_update_count) { should == 'NA' }
+ 		its(:start_time) { should == DateTime.strptime('2013-11-05 08:00:00', '%Y-%m-%d %H:%M:%S') } #, "+02:00") }
+ 		its(:end_time) { should == DateTime.strptime('2013-11-05 16:00:00', '%Y-%m-%d %H:%M:%S') } #, "+02:00") } 		
  	end
 	describe "when no data" do
 		subject { RigDetailsFormatter.new([]) }
