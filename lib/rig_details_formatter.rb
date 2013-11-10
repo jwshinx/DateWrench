@@ -11,10 +11,6 @@ class RigDetailsFormatter
 				end
 			end
         else # just one hash in an array
-			#if data[0][:collection_status] == 'downtime'
-			#	@downtime_duration = data[0][:duration]
-			#	@downtime_distance = data[0][:distance]
-			#	@downtime_update_count = data[0][:update_count]
 			['collecting', 'commuting', 'downtime'].each do |status|
 				if data[0][:collection_status] == status
 					['duration', 'distance', 'update_count'].each do |elem| 
@@ -25,18 +21,6 @@ class RigDetailsFormatter
 					set_na status
 				end
 			end
-
-			#elsif data[:collection_status] == 'collecting'
-			#	@collecting_duration = data[0][:duration]
-			#	@collecting_distance = data[0][:distance]
-			#	@collecting_update_count = data[0][:update_count]
-			#	['downtime', 'commuting'].each { |status| set_na status }
-			#else
-			#	@commuting_duration = data[0][:duration]
-			#	@commuting_distance = data[0][:distance]
-			#	@commuting_update_count = data[0][:update_count]
-			#	['downtime', 'collecting'].each { |status| set_na status }				
-			#end
         end
 	end
 	def set_na( status )
