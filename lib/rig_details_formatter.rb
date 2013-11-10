@@ -1,17 +1,9 @@
 class RigDetailsFormatter
-	attr_reader	:downtime_duration, :downtime_distance, :downtime_update_count, :commuting_duration, :commuting_distance, :commuting_update_count, :collecting_duration, :collecting_distance, :collecting_update_count
+	attr_accessor :downtime_duration, :downtime_distance, :downtime_update_count, :commuting_duration, :commuting_distance, :commuting_update_count, :collecting_duration, :collecting_distance, :collecting_update_count
 
 	def initialize(data)
 		if data.empty?
-			@downtime_duration = 'NA'
-			@downtime_distance = 'NA'
-			@downtime_update_count = 'NA'
-			@collecting_duration = 'NA'
-			@collecting_distance = 'NA'
-			@collecting_update_count = 'NA'
-			@commuting_duration = 'NA'
-			@commuting_distance = 'NA'
-			@commuting_update_count = 'NA'
+			['downtime', 'collecting', 'commuting'].each { |status| set_na status }
 		elsif data.is_a?(Array) && data.length > 1
 			data.each do |info|
 				if info[:collection_status] == 'downtime'
@@ -34,37 +26,22 @@ class RigDetailsFormatter
 				@downtime_duration = data[0][:duration]
 				@downtime_distance = data[0][:distance]
 				@downtime_update_count = data[0][:update_count]
-				@collecting_duration = 'NA'
-				@collecting_distance = 'NA'
-				@collecting_update_count = 'NA'
-				@commuting_duration = 'NA'
-				@commuting_distance = 'NA'
-				@commuting_update_count = 'NA'
+				['collecting', 'commuting'].each { |status| set_na status }
 
 			elsif data[:collection_status] == 'collecting'
 				@collecting_duration = data[0][:duration]
 				@collecting_distance = data[0][:distance]
 				@collecting_update_count = data[0][:update_count]
-				@downtime_duration = 'NA'
-				@downtime_distance = 'NA'
-				@downtime_update_count = 'NA'
-				@commuting_duration = 'NA'
-				@commuting_distance = 'NA'
-				@commuting_update_count = 'NA'				
+				['downtime', 'commuting'].each { |status| set_na status }
 			else
 				@commuting_duration = data[0][:duration]
 				@commuting_distance = data[0][:distance]
 				@commuting_update_count = data[0][:update_count]
-				@collecting_duration = 'NA'
-				@collecting_distance = 'NA'
-				@collecting_update_count = 'NA'
-				@downtime_duration = 'NA'
-				@downtime_distance = 'NA'
-				@downtime_update_count = 'NA'				
+				['downtime', 'collecting'].each { |status| set_na status }				
 			end
         end
 	end
-	def sayhi
-		'hi'
+	def set_na( status )
+		['duration', 'distance', 'update_count'].each { |elem| send "#{status}_#{elem}=", 'NA' }
 	end
 end
