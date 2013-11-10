@@ -14,6 +14,8 @@ describe "RigDetailsFormatter" do
  		its(:commuting_distance) { should == '22.2' }
  		its(:commuting_duration) { should == '22:22' }
  		its(:commuting_update_count) { should == '22' }
+ 		its(:start_time) { should == DateTime.strptime('2013-11-05 08:00:00', '%Y-%m-%d %H:%M:%S') } 
+ 		its(:end_time) { should == DateTime.strptime('2013-11-05 16:30:00', '%Y-%m-%d %H:%M:%S') } 
  	end
 	describe "when only with downtime data" do
 		subject { RigDetailsFormatter.new(downtime_hash) }
