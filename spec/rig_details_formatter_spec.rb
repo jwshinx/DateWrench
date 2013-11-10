@@ -27,4 +27,16 @@ describe "RigDetailsFormatter" do
  		its(:commuting_duration) { should == 'NA' }
  		its(:commuting_update_count) { should == 'NA' }
  	end
+	describe "when no data" do
+		subject { RigDetailsFormatter.new([]) }
+ 		its(:downtime_distance) { should == 'NA' }
+ 		its(:downtime_duration)  { should == 'NA' }
+ 		its(:downtime_update_count) { should == 'NA' }
+ 		its(:collecting_distance) { should == 'NA' }
+ 		its(:collecting_duration) { should == 'NA' }
+ 		its(:collecting_update_count) { should == 'NA' }
+ 		its(:commuting_distance) { should == 'NA' }
+ 		its(:commuting_duration) { should == 'NA' }
+ 		its(:commuting_update_count) { should == 'NA' }
+ 	end
 end

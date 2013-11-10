@@ -2,7 +2,16 @@ class RigDetailsFormatter
 	attr_reader	:downtime_duration, :downtime_distance, :downtime_update_count, :commuting_duration, :commuting_distance, :commuting_update_count, :collecting_duration, :collecting_distance, :collecting_update_count
 
 	def initialize(data)
-		if data.nil?
+		if data.empty?
+			@downtime_duration = 'NA'
+			@downtime_distance = 'NA'
+			@downtime_update_count = 'NA'
+			@collecting_duration = 'NA'
+			@collecting_distance = 'NA'
+			@collecting_update_count = 'NA'
+			@commuting_duration = 'NA'
+			@commuting_distance = 'NA'
+			@commuting_update_count = 'NA'
 		elsif data.is_a?(Array) && data.length > 1
 			data.each do |info|
 				if info[:collection_status] == 'downtime'
