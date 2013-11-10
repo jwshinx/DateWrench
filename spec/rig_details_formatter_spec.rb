@@ -38,5 +38,8 @@ describe "RigDetailsFormatter" do
  		its(:commuting_distance) { should == 'NA' }
  		its(:commuting_duration) { should == 'NA' }
  		its(:commuting_update_count) { should == 'NA' }
+ 		its(:start_time) { should == 'NA' }
+ 		its(:end_time) { should == 'NA' }
+
  	end
 end

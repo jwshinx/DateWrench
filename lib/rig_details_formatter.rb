@@ -1,11 +1,13 @@
 class RigDetailsFormatter
-	attr_accessor :downtime_duration, :downtime_distance, :downtime_update_count, :commuting_duration, :commuting_distance, :commuting_update_count, :collecting_duration, :collecting_distance, :collecting_update_count
+	attr_accessor :start_time, :end_time, :downtime_duration, :downtime_distance, :downtime_update_count, :commuting_duration, :commuting_distance, :commuting_update_count, :collecting_duration, :collecting_distance, :collecting_update_count
 
 	def initialize(data)
+		# DateTime.strptime(x, '%Y-%m-%d %H:%M:%S')
+		@start_time, @end_time = 'NA', 'NA'
 		if data.empty?
 			['downtime', 'collecting', 'commuting'].each { |status| set_elements_to_not_available status }
 		elsif data.is_a?(Array) && data.length > 1
-			data.each { |info| set_elements_to_value info }
+			data.each { |data_item| set_elements_to_value data_item }
         else # just one hash in an array
 			['collecting', 'commuting', 'downtime'].each do |status|
 				if data[0][:collection_status] == status
