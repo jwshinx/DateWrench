@@ -6,19 +6,8 @@ class RigDetailsFormatter
 			['downtime', 'collecting', 'commuting'].each { |status| set_na status }
 		elsif data.is_a?(Array) && data.length > 1
 			data.each do |info|
-				if info[:collection_status] == 'downtime'
-					@downtime_duration = info[:duration]
-					@downtime_distance = info[:distance]
-					@downtime_update_count = info[:update_count]
-				elsif info[:collection_status] == 'collecting'
-					@collecting_duration = info[:duration]
-					@collecting_distance = info[:distance]
-					@collecting_update_count = info[:update_count]
-				elsif info[:collection_status] == 'commuting'
-					@commuting_duration = info[:duration]
-					@commuting_distance = info[:distance]
-					@commuting_update_count = info[:update_count]
-				else
+				['duration', 'distance', 'update_count'].each do |elem| 
+					send "#{info[:collection_status]}_#{elem}=", info["#{elem}".to_sym] 
 				end
 			end
         else # just one hash in an array
