@@ -6,4 +6,7 @@ module TestHelper
 		  	{:collection_status => 'commuting', :duration => '22:22', :distance => '22.2', :update_count => '22'}
 		]
 	end
+	def downtime_hash
+		[ {:collection_status => 'downtime', :duration => '11:11', :distance => '111.1', :update_count => '11'}]
+	end	
 end

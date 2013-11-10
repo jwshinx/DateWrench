@@ -15,5 +15,16 @@ describe "RigDetailsFormatter" do
  		its(:commuting_duration) { should == '22:22' }
  		its(:commuting_update_count) { should == '22' }
  	end
-
+	describe "when only with downtime data" do
+		subject { RigDetailsFormatter.new(downtime_hash) }
+ 		its(:downtime_distance) { should == '111.1' }
+ 		its(:downtime_duration)  { should == '11:11' }
+ 		its(:downtime_update_count) { should == '11' }
+ 		its(:collecting_distance) { should == 'NA' }
+ 		its(:collecting_duration) { should == 'NA' }
+ 		its(:collecting_update_count) { should == 'NA' }
+ 		its(:commuting_distance) { should == 'NA' }
+ 		its(:commuting_duration) { should == 'NA' }
+ 		its(:commuting_update_count) { should == 'NA' }
+ 	end
 end
