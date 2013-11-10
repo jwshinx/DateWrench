@@ -3,7 +3,7 @@ class RigDetailsFormatter
 
 	def initialize(data)
 		if data.empty?
-			['downtime', 'collecting', 'commuting'].each { |status| set_na status }
+			['downtime', 'collecting', 'commuting'].each { |status| set_elements_to_not_available status }
 		elsif data.is_a?(Array) && data.length > 1
 			data.each do |info|
 				['duration', 'distance', 'update_count'].each do |elem| 
@@ -18,12 +18,15 @@ class RigDetailsFormatter
 					end
 				end
 				unless data[0][:collection_status] == status
-					set_na status
+					set_elements_to_not_available status
 				end
 			end
         end
 	end
-	def set_na( status )
-		['duration', 'distance', 'update_count'].each { |elem| send "#{status}_#{elem}=", 'NA' }
+	def set_elements_to_not_available( status )
+		set_value_for_each_element( status, 'NA' )
+	end
+	def set_value_for_each_element( status, value )
+		['duration', 'distance', 'update_count'].each { |element| send "#{status}_#{element}=", value }
 	end
 end
